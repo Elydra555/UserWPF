@@ -40,8 +40,8 @@
             </StackPanel>
             <StackPanel Grid.ColumnSpan="3" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="Add" Width="140" FontSize="24" Margin="20" Click="AddButton_Click"/>
-                <Button Content="Update" Width="140" FontSize="24" Margin="20" />
-                <Button Content="Delete" Width="140" FontSize="24" Margin="20" />
+                <Button x:Name="Update" Click="Update_Click" Content="Update" Width="140" FontSize="24" Margin="20" />
+                <Button x:Name="Delete" Click="Delete_Click" Content="Delete" Width="140" FontSize="24" Margin="20" />
                 <Button x:Name="Close" Click="Close_Click" Content="Close" Width="140" FontSize="24" Margin="20" />
             </StackPanel>
         </Grid>

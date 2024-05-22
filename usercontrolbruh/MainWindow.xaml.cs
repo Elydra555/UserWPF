@@ -25,6 +25,7 @@ namespace usercontrolbruh
     {
         public ObservableCollection<User> Users;
         public UsersContext context;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -32,20 +33,23 @@ namespace usercontrolbruh
             context = new UsersContext();
 
             //Init();
-            RefreshUsers();
+            RefleshUsers();
 
             lbUsers.ItemsSource = Users;
             spInput.DataContext = Users;
         }
 
-        private void RefreshUsers()
+        private void RefleshUsers()
         {
             Users.Clear();
-            foreach(var item in context.Users)
-            {
-                Users.Add(new User(item.Name, item.Email));
-            }
+
+            if (context.Users.Any())
+                foreach (var item in context.Users)
+                    Users.Add((User)item);
+            else Users.Add(new User());
+
         }
+
 
         private void Init()
         {
@@ -54,6 +58,7 @@ namespace usercontrolbruh
             context.SaveChanges();
         }
 
+
         private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
@@ -61,22 +66,49 @@ namespace usercontrolbruh
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            //Users.Add(new User("Sallai András", "sallai@gmail.com"));
+
             User user = lbUsers.SelectedItem as User;
-            if (user != null)
-            {
-                user = new User();
-            }
-            //MessageBox.Show(user.Name);
+            if (user == null) user = new User();
             user.Id = 0;
             context.Users.Add(user);
             context.SaveChanges();
-            RefreshUsers();
+            RefleshUsers();
+            lbUsers.SelectedItem = user;
+            lbUsers.UpdateLayout();
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            User user = lbUsers.SelectedItem as User;
+            if (user != null)
+            {
+                int index = lbUsers.SelectedIndex;
+
+                context.Users.Remove(user);
+                context.SaveChanges();
+                RefleshUsers();
+
+                lbUsers.SelectedIndex = index < lbUsers.Items.Count - 1 ? index : lbUsers.Items.Count - 1;
+                lbUsers.UpdateLayout();
+            }
+        }
+
+        private void Update_Click(object sender, RoutedEventArgs e)
+        {
+            User user = lbUsers.SelectedItem as User;
+            if (user != null)
+            {
+                context.Users.Update(user);
+                context.SaveChanges();
+                RefleshUsers();
+                lbUsers.SelectedItem = user;
+                lbUsers.UpdateLayout();
+            }
         }
     }
 }
