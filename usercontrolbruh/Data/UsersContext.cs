@@ -19,7 +19,7 @@ namespace usercontrolbruh.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\\MSSQLLocalDB;Database=SzervkereskedoBt;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=SzervkereskedoBt22;Trusted_Connection=True;");
         }
 
 

@@ -25,7 +25,7 @@
                 VerticalAlignment="Center"
                 />
             </StackPanel>
-            <ListBox Grid.Row="1" x:Name="lbUsers">
+            <ListBox Grid.Row="1" x:Name="lbUsers" IsSynchronizedWithCurrentItem="True">
             </ListBox>
 
             <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0, 0, 5, 0">
@@ -33,16 +33,16 @@
                 <TextBlock Text="Email" FontSize="22" Padding="0, 20" HorizontalAlignment="Right"></TextBlock>
             </StackPanel>
 
-            <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Center">
-                <TextBox Text="Username" FontSize="22" Padding="5, 20" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"></TextBox>
-                <TextBox Text="Email" FontSize="22" Padding="5, 20" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"></TextBox>
+            <StackPanel x:Name="spInput" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center">
+                <TextBox Text="{Binding Name}" FontSize="22" Padding="5, 20" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"></TextBox>
+                <TextBox Text="{Binding Email}" FontSize="22" Padding="5, 20" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"></TextBox>
 
             </StackPanel>
             <StackPanel Grid.ColumnSpan="3" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Add" Width="140" FontSize="24" Margin="20" />
+                <Button Content="Add" Width="140" FontSize="24" Margin="20" Click="AddButton_Click"/>
                 <Button Content="Update" Width="140" FontSize="24" Margin="20" />
                 <Button Content="Delete" Width="140" FontSize="24" Margin="20" />
-                <Button Content="Close" Width="140" FontSize="24" Margin="20" />
+                <Button x:Name="Close" Click="Close_Click" Content="Close" Width="140" FontSize="24" Margin="20" />
             </StackPanel>
         </Grid>
     </Border>
