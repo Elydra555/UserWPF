@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using usercontrolbruh.Data;
 using usercontrolbruh.Models;
 
 namespace usercontrolbruh
@@ -23,14 +24,34 @@ namespace usercontrolbruh
     public partial class MainWindow : Window
     {
         public ObservableCollection<User> Users;
+        public UsersContext context;
         public MainWindow()
         {
             InitializeComponent();
             Users = new ObservableCollection<User>();
-            Users.Add(new User("Józsa Béla", "bela@gmail.com"));
-            Users.Add(new User("Bálintr Dezső", "bdezso@gmail.com"));
+            context = new UsersContext();
+
+            //Init();
+            RefreshUsers();
+
             lbUsers.ItemsSource = Users;
             spInput.DataContext = Users;
+        }
+
+        private void RefreshUsers()
+        {
+            Users.Clear();
+            foreach(var item in context.Users)
+            {
+                Users.Add(new User(item.Name, item.Email));
+            }
+        }
+
+        private void Init()
+        {
+            context.Users.Add(new User("Józsa Béla", "bela@gmail.com"));
+            context.Users.Add(new User("Bálint Dezső", "bdezso@gmail.com"));
+            context.SaveChanges();
         }
 
         private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -40,7 +61,13 @@ namespace usercontrolbruh
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            Users.Add(new User("Sallai András", "sallai@gmail.com"));
+            //Users.Add(new User("Sallai András", "sallai@gmail.com"));
+            User user = lbUsers.SelectedItem as User;
+            //MessageBox.Show(user.Name);
+            user.Id = 0;
+            context.Users.Add(user);
+            context.SaveChanges();
+            RefreshUsers();
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
