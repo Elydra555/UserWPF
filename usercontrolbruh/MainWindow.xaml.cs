@@ -63,6 +63,10 @@ namespace usercontrolbruh
         {
             //Users.Add(new User("Sallai András", "sallai@gmail.com"));
             User user = lbUsers.SelectedItem as User;
+            if (user != null)
+            {
+                user = new User();
+            }
             //MessageBox.Show(user.Name);
             user.Id = 0;
             context.Users.Add(user);
